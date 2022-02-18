@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 import utils
+import serial
+ser = serial.Serial('COM3', 9600)
 curveList = []
 avgVal = 10
 def getLaneCurve(img,display=2):
@@ -67,4 +69,7 @@ if __name__ == '__main__':
         img = cv2.resize(img,(480,240))
         curve = getLaneCurve(img,display=2)
         print(curve)
+        val = curve
+        val.encode('utf-8')
+        ser.write(val)
         cv2.waitKey(1)
