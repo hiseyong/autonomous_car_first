@@ -1,0 +1,53 @@
+#define TRIG 9 //TRIG 핀 설정 (초음파 보내는 핀)
+
+#define ECHO 8 //ECHO 핀 설정 (초음파 받는 핀)
+
+#include<SoftwareSerial.h>
+
+SoftwareSerial myserial(12,13);
+
+void setup() {
+
+  Serial.begin(9600); 
+                       
+  myserial.begin(9600);
+
+
+  pinMode(TRIG, OUTPUT);
+
+  pinMode(ECHO, INPUT);
+
+
+
+}
+
+
+
+void loop()
+
+
+
+{
+
+  long dur, dis;
+
+
+
+  digitalWrite(TRIG, LOW);
+
+  delayMicroseconds(2);
+
+  digitalWrite(TRIG, HIGH);
+
+  delayMicroseconds(10);
+
+  digitalWrite(TRIG, LOW);
+
+
+
+  dur = pulseIn (ECHO, HIGH);
+  dis = dur * 17 / 1000; 
+
+  myserial.print(dis);
+
+}
