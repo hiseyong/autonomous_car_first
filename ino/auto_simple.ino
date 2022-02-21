@@ -1,3 +1,6 @@
+#include<SoftwareSerial.h>
+SoftwareSerial myserial(50,51);
+
 float gob = 100;
 int rec = 0;
 int diffrence;
@@ -37,6 +40,7 @@ void setup() {
   pinMode(encoderB,INPUT_PULLUP);
   pinMode(endstopL,INPUT_PULLUP);
   pinMode(endstopR,INPUT_PULLUP);
+  myserial.begin(9600);
   Serial.begin(9600);
   Serial.setTimeout(5);
 
@@ -173,6 +177,10 @@ while (ser == 0) {
 }
 
 void loop() {
+  //distance receive***********************************************************
+  if(myserial.available()) {
+    dis = Serial.parseInt();
+  }
   //Serial receive*************************************************************
   if (Serial.available()) {
     rec = Serial.parseInt();
@@ -210,7 +218,7 @@ void loop() {
   //rotate*******************************************************************************
   lastpulse = digitalRead(encoderA);
   lastpulse2 = digitalRead(encoderB);
-
+ 
   if (diffrence > 0) {
     
     if (rec > pulse) {
@@ -240,4 +248,14 @@ void loop() {
      }
    }
    //detect rotate angle end*****************
+
+   if (dis < 200) {
+    digitalWrite(str, LOW);
+    digitalWrite(brake1, HIGH);
+    digitalWrite(brake2, LOW);
+   } else {
+    digitalWrite(str, HIGH);
+    digitalWrite(brake1, LOW);
+    digitalWrite(brake2, HIGH);
+   }
 }
