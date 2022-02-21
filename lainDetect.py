@@ -8,6 +8,7 @@ ser.write(str(0).encode())
 time.sleep(15)
 ser.write(str(13).encode())
 time.sleep(5)
+lastval = 0
 curveList = []
 avgVal = 10
 def getLaneCurve(img,display=2):
@@ -73,7 +74,12 @@ if __name__ == '__main__':
         succes, img = cap.read()
         img = cv2.resize(img,(480,240))
         curve = getLaneCurve(img,display=2)
-        print(curve)
+
         val = str(curve * 100).encode()
-        ser.write(val)
+        if lastval == val:
+            print("same")
+        else:
+            print(val)
+            ser.write(val)
+            lastval = val
         cv2.waitKey(1)
