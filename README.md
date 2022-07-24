@@ -2,7 +2,7 @@
 my autonomous car project
 
 
-algorithm from: https://www.youtube.com/c/MurtazasWorkshopRoboticsandAIa
+algorithm from: https://www.youtube.com/c/MurtazasWorkshopRoboticsandAI
 
 
 file description:
